@@ -1,0 +1,1210 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>OutKargo</title>
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="icon" href="/img/FAVICON.ico"/>
+    </head>
+    <body>
+        <script type="text/javascript">
+            let FechaActual = new Date()
+            console.log(FechaActual)
+            Dia = FechaActual.getDate()
+            Mes = FechaActual.getMonth()+1
+            Año = FechaActual.getFullYear()
+            FechaCompleta = ( Dia + "-" + Mes + "-" + Año )
+        </script>
+        
+        <form action="Save" method="POST" id="Formulario">
+            <% listaci.forEach((listaci)=> { %>
+               <% id = listaci.ID %>
+            <% })%>
+            <input type="hidden" name="ID_ListaCI" id="ID_ListaCI" value="<%= id= id+1%>"> 
+                    <table class="table table-striped"  border="1">
+                        <thead class="table">
+                            <tr>
+                                <th rowspan="3" colspan="1"><img src="/img/Logo.png" class="ImagenLista"></th>
+                                <th rowspan="3" colspan="2">REGISTRO DE INSPECCIÓN PREOPERACIONAL DE MONTACARGAS</th>
+                                <th colspan="2">CÓDIGO </th>
+                                <th colspan="2">F-105-1 </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">FECHA </th>
+                                <th colspan="2">06/02/2018 </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">VERSIÓN </th>
+                                <th colspan="2">2 </th>
+                            </tr>
+                        </thead>
+                        <tbody class="tablaAbajo">
+                            <tr class="tr-editar">
+                                <td scope="col" colspan="2"><b>CLASE:</b> 5. COMBUSTION INTERNA</td>
+                                <td scope="col" colspan="1"> 
+                                    <b>NO.Montacargas: </b>
+                                        <% ID_Montacargas.forEach((ID_Montacargas)=> { %>
+                                            <label> <%= ID_Montacargas.Numero %> </label>
+                                            <input type="hidden"  id="ID_Montacargas" name="ID_Montacargas" value="<%= ID_Montacargas.ID %>">
+                                        <% }) %>
+                                </td>
+                                <td scope="col" colspan="2"> 
+                                    <b>Marca: </b>
+                                        <% ID_Montacargas.forEach((ID_Montacargas)=> { %>
+                                                <label> <%= ID_Montacargas.Marca %> </label>
+                                        <% }) %>
+                                </td>
+                                <td scope="col" colspan="2"> 
+                                    <b>Serial: </b>
+                                    <% ID_Montacargas.forEach((ID_Montacargas)=> { %>
+                                        <label> <%= ID_Montacargas.Serie %> </label>
+                                    <% }) %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td scope="col">
+                                    <b>FECHA:</b><script>document.write(FechaCompleta)   </script> 
+                                </td>
+                                <td scope="col" colspan="6">
+                                    <% supervisor.forEach((supervisor)=> { %>
+                                        <% if (supervisor.Estado == 1) {%>
+                                            <b>OPERADOR: </b><label> <%= supervisor.Nombre1 %> <%= supervisor.Nombre2 %> <%= supervisor.Apellido1 %> <%= supervisor.Apellido2 %></label>
+                                            <input type="hidden" value="<%= supervisor.ID%>" id="ID_Supervisor" name="ID_Supervisor">
+                                        <% } %> 
+                                    <% }) %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td scope="col"> <b>Turno:</b>
+                                    <select name="Turno">
+                                        <option value="1"> 6:00 A.M - 2:00 P.M</option>
+                                        <option value="2"> 2:00 P.M - 10:00 P.M</option>
+                                        <option value="3"> 10:00 P.M - 6:00 A.M</option>
+                                        <option value="4"> 6:30 A.M - 4:30 P.M</option>
+                                        <option value="5"> 8:00 A.M - 5:00 P.M</option>
+                                        <option value="6"> 7:00 A.M - 5:00 P.M</option>
+                                    </select>
+                                </td>
+                                <td scope="col" colspan="5"><b>CENTROS DE TRABAJO:</b>
+                                    <% supervisor.forEach((supervisor)=> { %>
+                                        <% CentrosT.forEach((CentrosT)=> { %>
+                                            <% if (supervisor.ID_Centro == CentrosT.ID) { %>
+                                                <% if (CentrosT.Estado == 1) {%>
+                                                    <label> <%= CentrosT.Nombre%></label>
+                                                    <input type="hidden" name="ID_CentrosT" id="ID_CentrosT" value="<%= CentrosT.ID %>"> 
+                                                <% } %>
+                                            <% } %> 
+                                        <% }) %>
+                                    <% }) %>
+                                    
+                                </td>
+                                <td scope="col"><b>SECCIÓN</b>
+                                    <select name="ID_SeccionesT" id="ID_SeccionesT">
+                                        <% SeccionesT.forEach((SeccionesT)=> { %>
+                                            <% if (SeccionesT.Estado == 1) {%>
+                                                <option value="<%= SeccionesT.ID %>"> <%= SeccionesT.Nombre%></option>
+                                                <% } %>
+                                        <% }) %>
+                                    </select>
+                                </td>
+                            </tr>
+                                <td scope="col" colspan="2 ">
+                                    <b>Horometro Inicial: </b>
+                                    <% ID_Montacargas.forEach((ID_Montacargas)=> { %>
+                                        <label> <%= ID_Montacargas.HorometroI %> </label>
+                                        <input type="hidden"  id="HorometroI" name="HorometroI" value="<%= ID_Montacargas.HorometroI %>">
+                                    <% }) %>
+                                </td>
+                                <td scope="col" colspan="5">
+                                    <b>Horometro Final:</b>
+                                    <input type="number" id="HorometroF" name="HorometroF" placeholder="Ingrese el horometro final">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><b>ASPECTOS DE EVALUACIÓN</b></td>
+                                <td colspan="4"><b>CONDICIÓN</b></td>
+                            </tr>
+                            <tr>
+                                <th rowspan="9">AUTO INSPECCIÓN OPERADOR</th>
+                                <td colspan="2">SERVICIOS MÉDICOS( <b>"EPS","ARL","C.C","CARNE EMPRESARIAL"</b> )</td>
+                                <td colspan="2">
+                                    SI: 
+                                    <input type="checkbox" name="Carnet_De_Servicios_Medicos" id="Carnet_De_Servicios_Medicos" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    NO:         
+                                    <input type="checkbox" name="Carnet_De_Servicios_Medicos" id="Carnet_De_Servicios_Medicos" value="2">
+                                </td>                 
+                            </tr>
+                            <tr>
+                                <td colspan="2">CONSUME MEDICAMENTOS</td>
+                                <td colspan="2">
+                                    SI: 
+                                    <input type="checkbox" name="Consume_Medicamentos" id="Consume_Medicamentos" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    NO:         
+                                    <input type="checkbox" name="Consume_Medicamentos" id="Consume_Medicamentos" value="2">
+                                </td>  
+                            </tr>
+                            <tr>        
+                                <th rowspan="7">E.P.P</th>
+                                <td>CASCO</td>
+                                <td colspan="2">
+                                    SI: 
+                                    <input type="checkbox" name="Casco" id="Casco" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    NO:         
+                                    <input type="checkbox" name="Casco" id="Casco" value="2">
+                                </td>  
+                            </tr>
+                            <tr>
+                                <td>GAFAS DE PROTECCIÓN</td>
+                                <td colspan="2">
+                                    SI: 
+                                    <input type="checkbox" name="Gafas_De_Proteccion" id="Gafas_De_Proteccion" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    NO:         
+                                    <input type="checkbox" name="Gafas_De_Proteccion" id="Gafas_De_Proteccion" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PROTECTORES AUDITIVOS</td>
+                                <td colspan="2">
+                                    SI: 
+                                    <input type="checkbox" name="Protectores_Auditivos" id="Protectores_Auditivos" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    NO:         
+                                    <input type="checkbox" name="Protectores_Auditivos" id="Protectores_Auditivos" value="2">
+                                </td> 
+                            </tr>
+                            <tr>
+                                <td>PROTECCIÓN RESPIRATORIA</td>
+                                <td colspan="2">
+                                    SI: 
+                                    <input type="checkbox" name="Proteccion_Respiratoria" id="Proteccion_Respiratoria" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    NO:         
+                                    <input type="checkbox" name="Proteccion_Respiratoria" id="Proteccion_Respiratoria" value="2">
+                                </td>  
+                            </tr>
+                            <tr>
+                                <td>GUANTES</td>
+                                <td colspan="2">
+                                    SI: 
+                                    <input type="checkbox" name="Guantes" id="Guantes" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    NO:         
+                                    <input type="checkbox" name="Guantes" id="Guantes" value="2">
+                                </td> 
+                            </tr>
+                            <tr>
+                                <td>UNIFORME</td>
+                                <td colspan="2">
+                                    SI: 
+                                    <input type="checkbox" name="Uniforme" id="Uniforme" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    NO:         
+                                    <input type="checkbox" name="Uniforme" id="Uniforme" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>BOTAS PUNTA DE ACERO</td>
+                                <td colspan="2">
+                                    SI: 
+                                    <input type="checkbox" name="Botas_Punta_De_Acero" id="Botas_Punta_De_Acero" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    NO:         
+                                    <input type="checkbox" name="Botas_Punta_De_Acero" id="Botas_Punta_De_Acero" value="2">
+                                </td>
+                            </tr>
+    
+                            <tr>
+                                <th rowspan="31">INSPECCIÓN VISUAL</th>
+                                <th rowspan="3">AREA DE TRABAJO</th>
+                                <td>LIMPIEZA</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Limpieza" id="Limpieza" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Limpieza" id="Limpieza" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PRESENCIA DE DERRAMES</td>
+                                <td colspan="2">
+                                    SI: 
+                                    <input type="checkbox" name="Presencia_De_Derrames" id="Presencia_De_Derrames" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    NO:         
+                                    <input type="checkbox" name="Presencia_De_Derrames" id="Presencia_De_Derrames" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>OBSTÁCULOS</td>
+                                <td colspan="2">
+                                    SI: 
+                                    <input type="checkbox" name="Obstaculos" id="Obstaculos" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    NO:         
+                                    <input type="checkbox" name="Obstaculos" id="Obstaculos" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th rowspan="8">CARROCERÍA</th>
+                                <td>PINTURA Y LIMPIEZA EXTERIOR</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Pintura_Y_Limpieza_Exterior" id="Pintura_Y_Limpieza_Exterior" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Pintura_Y_Limpieza_Exterior" id="Pintura_Y_Limpieza_Exterior" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>COJINERIA DE LA SILLA</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Cojineria_De_La_Silla" id="Cojineria_De_La_Silla" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Cojineria_De_La_Silla" id="Cojineria_De_La_Silla" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>CINTURON DE SEGURIDAD</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Cinturon_De_Seguridad" id="Cinturon_De_Seguridad" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Cinturon_De_Seguridad" id="Cinturon_De_Seguridad" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ESPEJOS LATERALES</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Espejos_Laterales" id="Espejos_Laterales" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Espejos_Laterales" id="Espejos_Laterales" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PEDALES DE FRENO</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Pedales_De_Freno" id="Pedales_De_Freno" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Pedales_De_Freno" id="Pedales_De_Freno" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>FRENO DE MANO</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Freno_De_Mano" id="Freno_De_Mano" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Freno_De_Mano" id="Freno_De_Mano" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PEDALES DE ACELERACIÓN</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Pedales_De_Aceleracion" id="Pedales_De_Aceleracion" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Pedales_De_Aceleracion" id="Pedales_De_Aceleracion" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>CONTROL DE MARCHA ADELANTE Y ATRÁS</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Control_De_Marcha_Adelante_Y_Atras" id="Control_De_Marcha_Adelante_Y_Atras" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Control_De_Marcha_Adelante_Y_Atras" id="Control_De_Marcha_Adelante_Y_Atras" value="2">
+                                </td>
+                            </tr>
+    
+                            <tr>
+                                <th rowspan="3">LLANTAS</th>
+                                <td>ESTADO GENERAL</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Estado_General" id="Estado_General" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Estado_General" id="Estado_General" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>RUEDAS MACIZAS</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Ruedas_Macizas" id="Ruedas_Macizas" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Ruedas_Macizas" id="Ruedas_Macizas" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>LLANTAS NEUMATICAS</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="LLantas_Neumaticas" id="LLantas_Neumaticas" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="LLantas_Neumaticas" id="LLantas_Neumaticas" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">HORQUILLAS</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Horquillas" id="Horquillas" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Horquillas" id="Horquillas" value="2">
+                                </td>
+                            </tr>   
+                            <tr>
+                                <td rowspan="2">CARRO PORTA HORQUILLAS</td>
+                                <td>ESTADO</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Carro_Porta_Horquillas_Estado" id="Carro_Porta_Horquillas_Estado" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Carro_Porta_Horquillas_Estado" id="Carro_Porta_Horquillas_Estado" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ENGRASE</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Carro_Porta_Horquillas_Engrase" id="Carro_Porta_Horquillas_Engrase" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Carro_Porta_Horquillas_Engrase" id="Carro_Porta_Horquillas_Engrase" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">CADENAS DE LEVANTE</td>
+                                <td>ESTADO</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Cadenas_De_Levante_Estado" id="Cadenas_De_Levante_Estado" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Cadenas_De_Levante_Estado" id="Cadenas_De_Levante_Estado" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>TENSIÓN</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Cadenas_De_Levante_Tension" id="Cadenas_De_Levante_Tension" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Cadenas_De_Levante_Tension" id="Cadenas_De_Levante_Tension" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">CILINDROS DE LEVANTE <br> CENTRALES</td>
+                                <td>ESTADO</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Cilindros_De_Levante_Central_Estado" id="Cilindros_De_Levante_Central_Estado" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Cilindros_De_Levante_Central_Estado" id="Cilindros_De_Levante_Central_Estado" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>FUGAS</td>
+                                <td colspan="2">
+                                    SI: 
+                                    <input type="checkbox" name="Cilindros_De_Levante_Central_Fugas" id="Cilindros_De_Levante_Central_Fugas" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    NO:         
+                                    <input type="checkbox" name="Cilindros_De_Levante_Central_Fugas" id="Cilindros_De_Levante_Central_Fugas" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">CILINDROS DE LEVANTE <br> LATERALES</td>
+                                <td>ESTADO</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Cilindros_De_Levante_Laterales_Estado" id="Cilindros_De_Levante_Laterales_Estado" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Cilindros_De_Levante_Laterales_Estado" id="Cilindros_De_Levante_Laterales_Estado" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>FUGAS</td>
+                                <td colspan="2">
+                                    SI: 
+                                    <input type="checkbox" name="Cilindros_De_Levante_Laterales_Fugas" id="Cilindros_De_Levante_Laterales_Fugas" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    NO:         
+                                    <input type="checkbox" name="Cilindros_De_Levante_Laterales_Fugas" id="Cilindros_De_Levante_Laterales_Fugas" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">CILINDROS DE DIRECCIÓN</td>
+                                <td>ESTADO</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Cilindros_De_Direccion_Estado" id="Cilindros_De_Direccion_Estado" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Cilindros_De_Direccion_Estado" id="Cilindros_De_Direccion_Estado" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>FUGAS</td>
+                                <td colspan="2">
+                                    SI: 
+                                    <input type="checkbox" name="Cilindros_De_Direccion_Fugas" id="Cilindros_De_Direccion_Fugas" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    NO:         
+                                    <input type="checkbox" name="Cilindros_De_Direccion_Fugas" id="Cilindros_De_Direccion_Fugas" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">CILINDROS DE INCLINACION</td>
+                                <td>ESTADO</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Cilindros_De_Inclinacion_Estado" id="Cilindros_De_Inclinacion_Estado" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Cilindros_De_Inclinacion_Estado" id="Cilindros_De_Inclinacion_Estado" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>FUGAS</td>
+                                <td colspan="2">
+                                    SI: 
+                                    <input type="checkbox" name="Cilindros_De_Inclinacion_Fugas" id="Cilindros_De_Inclinacion_Fugas" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    NO:         
+                                    <input type="checkbox" name="Cilindros_De_Inclinacion_Fugas" id="Cilindros_De_Inclinacion_Fugas" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">TERMINALES DE DIRECCIÓN</td>
+                                <td>ESTADO</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Terminales_De_Direccion_Estado" id="Terminales_De_Direccion_Estado" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Terminales_De_Direccion_Estado" id="Terminales_De_Direccion_Estado" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>FUGAS</td>
+                                <td colspan="2">
+                                    SI: 
+                                    <input type="checkbox" name="Terminales_De_Direccion_Fugas" id="Terminales_De_Direccion_Fugas" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    NO:         
+                                    <input type="checkbox" name="Terminales_De_Direccion_Fugas" id="Terminales_De_Direccion_Fugas" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">MANGUERAS Y TUBERÍA DEL SISTEMA HIDRÁULICO</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Mangueras_Y_Tuberia_Del_Sistema_Hidraulico" id="Mangueras_Y_Tuberia_Del_Sistema_Hidraulico" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Mangueras_Y_Tuberia_Del_Sistema_Hidraulico" id="Mangueras_Y_Tuberia_Del_Sistema_Hidraulico" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">PALANCAS DE MANDO Y CONTROL HIDRÁULICO</td>
+                                <td colspan="1">
+                                    BUENO: 
+                                    <input type="checkbox" name="Palancas_De_Mando_Y_Control_Hidraulico" id="Palancas_De_Mando_Y_Control_Hidraulico" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    JUEGO:         
+                                    <input type="checkbox" name="Palancas_De_Mando_Y_Control_Hidraulico" id="Palancas_De_Mando_Y_Control_Hidraulico" value="2">
+                                </td>
+                                <td colspan="3">
+                                    MALO:         
+                                    <input type="checkbox" name="Palancas_De_Mando_Y_Control_Hidraulico" id="Palancas_De_Mando_Y_Control_Hidraulico" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th rowspan="2">SISTEMA DE FRENOS</th>
+                                <td colspan="2">PRINCIPAL(PARADA DE MAQUINA)</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Principal" id="Principal" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Principal" id="Principal" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">PARQUEO</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Parqueo" id="Parqueo" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Parqueo" id="Parqueo" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th rowspan="8">SEÑALES DE SEGURIDAD</th>
+                                <td colspan="2">PITO DE BOCINA</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                    <input type="checkbox" name="Pito_De_Bocina" id="Pito_De_Bocina" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Pito_De_Bocina" id="Pito_De_Bocina" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">ALARMA DE SEÑAL DE REVERSA</td>
+                                <td colspan="2">
+                                       BUENO: 
+                                    <input type="checkbox" name="Alarma_De_Señal_De_Reversa" id="Alarma_De_Señal_De_Reversa" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Alarma_De_Señal_De_Reversa" id="Alarma_De_Señal_De_Reversa" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">STROBER - LUZ ESTROBOSCÓPICA</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                 <input type="checkbox" name="Strober_Luz_Estroboscopica" id="Strober_Luz_Estroboscopica" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Strober_Luz_Estroboscopica" id="Strober_Luz_Estroboscopica" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">LUCES DIRECCIONALES</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                 <input type="checkbox" name="Luces_Direccionales" id="Luces_Direccionales" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Luces_Direccionales" id="Luces_Direccionales" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">LUCES DEL FRENO</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                 <input type="checkbox" name="Luces_Del_Freno" id="Luces_Del_Freno" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Luces_Del_Freno" id="Luces_Del_Freno" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">LUCES MARCHA ADELANTE</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                 <input type="checkbox" name="Luces_Marcha_Delante" id="Luces_Marcha_Delante" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Luces_Marcha_Delante" id="Luces_Marcha_Delante" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">LUCES MARCHA ATRAS</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                 <input type="checkbox" name="Luces_Marcha_Atras" id="Luces_Marcha_Atras" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Luces_Marcha_Atras" id="Luces_Marcha_Atras" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" rowspan="1">EXTINTOR DE INCENDIOS</td>
+                                <td colspan="2">
+                                    VIGENTE Y/O BUENO: 
+                                    <input type="checkbox" name="Extintor_De_Incendios" id="Extintor_De_Incendios" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    VENCIDO Y/O DAÑADO:         
+                                    <input type="checkbox" name="Extintor_De_Incendios" id="Extintor_De_Incendios" value="2">
+                                </td>
+                            </tr>
+    
+                            <tr>
+                                <th rowspan="8">NIVELES</th>
+                                <td colspan="2">LIQUIDO REFRIGERANTE DEL RADIADOR</td>
+                                <td colspan="1">
+                                    OPTIMO: 
+                                 <input type="checkbox" name="Liquido_Refrigerante_Del_Radiador" id="Liquido_Refrigerante_Del_Radiador" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    BAJO:         
+                                    <input type="checkbox" name="Liquido_Refrigerante_Del_Radiador" id="Liquido_Refrigerante_Del_Radiador" value="2">
+                                </td>
+                                <td colspan="2">
+                                    FUGAS:         
+                                    <input type="checkbox" name="Liquido_Refrigerante_Del_Radiador" id="Liquido_Refrigerante_Del_Radiador" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">ELECTROLITO DE LA BATERIA</td>
+                                <td colspan="1">
+                                    OPTIMO: 
+                                 <input type="checkbox" name="Electrolito_De_La_Bateria" id="Electrolito_De_La_Bateria" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    BAJO:         
+                                    <input type="checkbox" name="Electrolito_De_La_Bateria" id="Electrolito_De_La_Bateria" value="2">
+                                </td>
+                                <td colspan="2">
+                                    FUGAS:         
+                                    <input type="checkbox" name="Electrolito_De_La_Bateria" id="Electrolito_De_La_Bateria" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">LIQUIDO DE FRENOS</td>
+                                <td colspan="1">
+                                    OPTIMO: 
+                                 <input type="checkbox" name="Liquido_De_Frenos" id="Liquido_De_Frenos" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    BAJO:         
+                                    <input type="checkbox" name="Liquido_De_Frenos" id="Liquido_De_Frenos" value="2">
+                                </td>
+                                <td colspan="2">
+                                    FUGAS:         
+                                    <input type="checkbox" name="Liquido_De_Frenos" id="Liquido_De_Frenos" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">ACEITE DE MOTOR</td>
+                                <td colspan="1">
+                                    OPTIMO: 
+                                 <input type="checkbox" name="Aceite_De_Motor" id="Aceite_De_Motor" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    BAJO:         
+                                    <input type="checkbox" name="Aceite_De_Motor" id="Aceite_De_Motor" value="2">
+                                </td>
+                                <td colspan="2">
+                                    FUGAS:         
+                                    <input type="checkbox" name="Aceite_De_Motor" id="Aceite_De_Motor" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">ACEITE DEL SISTEMA HIDRÁULICO</td>
+                                <td colspan="1">
+                                    OPTIMO: 
+                                 <input type="checkbox" name="Aceite_Del_Sistema_Hidraulico" id="Aceite_Del_Sistema_Hidraulico" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    BAJO:         
+                                    <input type="checkbox" name="Aceite_Del_Sistema_Hidraulico" id="Aceite_Del_Sistema_Hidraulico" value="2">
+                                </td>
+                                <td colspan="2">
+                                    FUGAS:         
+                                    <input type="checkbox" name="Aceite_Del_Sistema_Hidraulico" id="Aceite_Del_Sistema_Hidraulico" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">ACEITE DE LA CAJA AUTOMATICA</td>
+                                <td colspan="1">
+                                    OPTIMO: 
+                                 <input type="checkbox" name="Aceite_De_La_Caja_Automatica" id="Aceite_De_La_Caja_Automatica" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    BAJO:         
+                                    <input type="checkbox" name="Aceite_De_La_Caja_Automatica" id="Aceite_De_La_Caja_Automatica" value="2">
+                                </td>
+                                <td colspan="2">
+                                    FUGAS:         
+                                    <input type="checkbox" name="Aceite_De_La_Caja_Automatica" id="Aceite_De_La_Caja_Automatica" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">ACEITE DE TRANSMISIÓN</td>
+                                <td colspan="1">
+                                    OPTIMO: 
+                                 <input type="checkbox" name="Aceite_De_Transmision" id="Aceite_De_Transmision" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    BAJO:         
+                                    <input type="checkbox" name="Aceite_De_Transmision" id="Aceite_De_Transmision" value="2">
+                                </td>
+                                <td colspan="2">
+                                    FUGAS:         
+                                    <input type="checkbox" name="Aceite_De_Transmision" id="Aceite_De_Transmision" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">COMBUSTIBLE</td>
+                                <td colspan="1">
+                                    OPTIMO: 
+                                 <input type="checkbox" name="Combustible" id="Combustible" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    BAJO:         
+                                    <input type="checkbox" name="Combustible" id="Combustible" value="2">
+                                </td>
+                                <td colspan="2">
+                                    FUGAS:         
+                                    <input type="checkbox" name="Combustible" id="Combustible" value="3">
+                                </td>
+                            </tr>
+    
+                            <tr>
+                                <th rowspan="7">TESTIGOS</th>
+                                <td colspan="2">HOROMETRO</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                 <input type="checkbox" name="Horometro" id="Horometro" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Horometro" id="Horometro" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">NIVEL DE COMBUSTIBLE</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                 <input type="checkbox" name="Nivel_De_Combustible" id="Nivel_De_Combustible" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Nivel_De_Combustible" id="Nivel_De_Combustible" value="2">
+                                </td>
+                            </tr>
+                            <tr>    
+                                <td colspan="2">PRESIÓN ACEITE DE MOTOR</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                 <input type="checkbox" name="Presion_Aceite_De_Motor" id="Presion_Aceite_De_Motor" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Presion_Aceite_De_Motor" id="Presion_Aceite_De_Motor" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">TEMPERATURA MOTOR</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                 <input type="checkbox" name="Temperatura_Motor" id="Temperatura_Motor" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Temperatura_Motor" id="Temperatura_Motor" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">NIVEL LIQUIDO DE FRENOS</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                 <input type="checkbox" name="Nivel_Liquido_De_Frenos" id="Nivel_Liquido_De_Frenos" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Nivel_Liquido_De_Frenos" id="Nivel_Liquido_De_Frenos" value="2">
+                                </td>
+                            </tr>
+                           
+                            <tr>
+                                <td colspan="2">FRENOS NEUMATICOS</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                 <input type="checkbox" name="Frenos_Neumaticos" id="Frenos_Neumaticos" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Frenos_Neumaticos" id="Frenos_Neumaticos" value="2">
+                                </td>
+                            </tr>
+                           
+                            <tr>
+                                <td colspan="2">NIVEL ACEITE DEL SISTEMA HIDRAÚLICO</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                 <input type="checkbox" name="Nivel_Aceite_Del_Sistema_Hidraulico" id="Nivel_Aceite_Del_Sistema_Hidraulico" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Nivel_Aceite_Del_Sistema_Hidraulico" id="Nivel_Aceite_Del_Sistema_Hidraulico" value="2">
+                                </td>
+                            </tr>
+                           
+                            <tr>
+                                <th rowspan="5">BATERIA</th>
+                                <td colspan="2">ESTADO DE LA BATERIA</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                 <input type="checkbox" name="Estado_De_La_Bateria" id="Estado_De_La_Bateria" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Estado_De_La_Bateria" id="Estado_De_La_Bateria" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">ESTADO DE LOS BORNES DE LA BATERIA</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                 <input type="checkbox" name="Estado_De_Los_Bornes_De_La_Bateria" id="Estado_De_Los_Bornes_De_La_Bateria" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Estado_De_Los_Bornes_De_La_Bateria" id="Estado_De_Los_Bornes_De_La_Bateria" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">NIVEL DE ELECTROLITO DE LA BATERIA</td>
+                                <td colspan="1">
+                                    OPTIMO: 
+                                 <input type="checkbox" name="Nivel_De_Electrolito_De_La_Bateria" id="Nivel_De_Electrolito_De_La_Bateria" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    EXCESIVO:         
+                                    <input type="checkbox" name="Nivel_De_Electrolito_De_La_Bateria" id="Nivel_De_Electrolito_De_La_Bateria" value="2">
+                                </td>
+                                <td colspan="2">
+                                    BAJO:         
+                                    <input type="checkbox" name="Nivel_De_Electrolito_De_La_Bateria" id="Nivel_De_Electrolito_De_La_Bateria" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">VOLTAJE DE LA BATERIA (VOLTIOS)</td>
+                                <td>
+                                    12:
+                                    <input type="checkbox" name="Voltaje_De_La_Bateria" id="Voltaje_De_La_Bateria" value="1">
+                                </td>
+                                <td>
+                                    24:
+                                    <input type="checkbox" name="Voltaje_De_La_Bateria" id="Voltaje_De_La_Bateria" value="2">
+                                </td>
+                                <td>
+                                    36:
+                                    <input type="checkbox" name="Voltaje_De_La_Bateria" id="Voltaje_De_La_Bateria" value="3">
+                                </td>
+                                <td>
+                                    48:
+                                    <input type="checkbox" name="Voltaje_De_La_Bateria" id="Voltaje_De_La_Bateria" value="4">
+                                </td>   
+                            </tr>
+                            <tr>
+                                <td colspan="2">CABLES DE LA BATERIA</td>
+                                <td colspan="2">
+                                    BUENO: 
+                                 <input type="checkbox" name="Cables_De_La_Bateria" id="Cables_De_La_Bateria" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Cables_De_La_Bateria" id="Cables_De_La_Bateria" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th rowspan="10">MONTACARGAS <br> COMBUSTION INTERNA</th>
+                                <th rowspan="7">GAS</th>
+                                <td>ESTADO CILINDRO DE GAS</td>
+                                <td colspan="1">
+                                    BUENO: 
+                                 <input type="checkbox" name="Estado_Cilindro_De_Gas" id="Estado_Cilindro_De_Gas" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Estado_Cilindro_De_Gas" id="Estado_Cilindro_De_Gas" value="2">
+                                </td>
+                                <td colspan="2">
+                                    NO APLICA:         
+                                    <input type="checkbox" name="Estado_Cilindro_De_Gas" id="Estado_Cilindro_De_Gas" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >SOPORTE DE ASEGURAMIENTO DEL CILINDRO</td>
+                                <td colspan="1">
+                                    BUENO: 
+                                 <input type="checkbox" name="Soporte_De_Aseguramiento_Del_Cilindro" id="Soporte_De_Aseguramiento_Del_Cilindro" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Soporte_De_Aseguramiento_Del_Cilindro" id="Soporte_De_Aseguramiento_Del_Cilindro" value="2">
+                                </td>
+                                <td colspan="2">
+                                    NO APLICA:         
+                                    <input type="checkbox" name="Soporte_De_Aseguramiento_Del_Cilindro" id="Soporte_De_Aseguramiento_Del_Cilindro" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >CONEXION Y RACORES</td>
+                                <td colspan="1">
+                                    BUENO: 
+                                 <input type="checkbox" name="Conexiones_Y_Racores" id="Conexiones_Y_Racores" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Conexiones_Y_Racores" id="Conexiones_Y_Racores" value="2">
+                                </td>
+                                <td colspan="2">
+                                    NO APLICA:         
+                                    <input type="checkbox" name="Conexiones_Y_Racores" id="Conexiones_Y_Racores" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >MAGUERA</td>
+                                <td colspan="1">
+                                    BUENO: 
+                                 <input type="checkbox" name="Manguera" id="Manguera" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Manguera" id="Manguera" value="2">
+                                </td>
+                                <td colspan="2">
+                                    NO APLICA:         
+                                    <input type="checkbox" name="Manguera" id="Manguera" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >LLAVE DE PASO</td>
+                                <td colspan="1">
+                                    BUENO: 
+                                 <input type="checkbox" name="Llave_De_Paso" id="Llave_De_Paso" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Llave_De_Paso" id="Llave_De_Paso" value="2">
+                                </td>
+                                <td colspan="2">
+                                    NO APLICA:         
+                                    <input type="checkbox" name="Llave_De_Paso" id="Llave_De_Paso" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >VALVULA DE RETENCION</td>
+                                <td colspan="1">
+                                    BUENO: 
+                                 <input type="checkbox" name="Valvula_De_Retencion" id="Valvula_De_Retencion" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Valvula_De_Retencion" id="Valvula_De_Retencion" value="2">
+                                </td>
+                                <td colspan="2">
+                                    NO APLICA:         
+                                    <input type="checkbox" name="Valvula_De_Retencion" id="Valvula_De_Retencion" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >FILTRO DEL SISTEMA</td>
+                                <td colspan="1">
+                                    BUENO: 
+                                 <input type="checkbox" name="Filtro_Del_Sistema" id="Filtro_Del_Sistema" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Filtro_Del_Sistema" id="Filtro_Del_Sistema" value="2">
+                                </td>
+                                <td colspan="2">
+                                    NO APLICA:         
+                                    <input type="checkbox" name="Filtro_Del_Sistema" id="Filtro_Del_Sistema" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th rowspan="3">DIESEL O <br> GASOLINA</th>
+                                <td>TAPA DE TANQUE DE COMBUSTIBLE</td>
+                                <td colspan="1">
+                                    BUENO: 
+                                 <input type="checkbox" name="Tapa_De_Tanque_De_Combustible" id="Tapa_De_Tanque_De_Combustible" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Tapa_De_Tanque_De_Combustible" id="Tapa_De_Tanque_De_Combustible" value="2">
+                                </td>
+                                <td colspan="2">
+                                    NO APLICA:         
+                                    <input type="checkbox" name="Tapa_De_Tanque_De_Combustible" id="Tapa_De_Tanque_De_Combustible" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ESTADO DEL TANQUE DE COMBUSTIBLE</td>
+                                <td colspan="1">
+                                    BUENO: 
+                                 <input type="checkbox" name="Estado_Del_Tanque_De_Combustible" id="Estado_Del_Tanque_De_Combustible" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Estado_Del_Tanque_De_Combustible" id="Estado_Del_Tanque_De_Combustible" value="2">
+                                </td>
+                                <td colspan="2">
+                                    NO APLICA:         
+                                    <input type="checkbox" name="Estado_Del_Tanque_De_Combustible" id="Estado_Del_Tanque_De_Combustible" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >NIVEL DE COMBUSTIBLE</td>
+                                <td colspan="1">
+                                    BUENO: 
+                                 <input type="checkbox" name="Nivel_De_Combustible2" id="Nivel_De_Combustible2" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    MALO:         
+                                    <input type="checkbox" name="Nivel_De_Combustible2" id="Nivel_De_Combustible2" value="2">
+                                </td>
+                                <td colspan="2">
+                                    NO APLICA:         
+                                    <input type="checkbox" name="Nivel_De_Combustible2" id="Nivel_De_Combustible2" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th rowspan="3">LIMPIEZA DE FILTROS <br> DEL EQUIPO</th>
+                                <td colspan="2">FILTRO DE AIRE</td>
+                                <td colspan="2">
+                                    SI: 
+                                    <input type="checkbox" name="Filtro_De_Aire" id="Filtro_De_Aire" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    NO:         
+                                    <input type="checkbox" name="Filtro_De_Aire" id="Filtro_De_Aire" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">FILTRO DE COMBUSTIBLE</td>
+                                <td colspan="2">
+                                    SI: 
+                                    <input type="checkbox" name="Filtro_De_Combustible" id="Filtro_De_Combustible" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    NO:         
+                                    <input type="checkbox" name="Filtro_De_Combustible" id="Filtro_De_Combustible" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">FILTRO DE HIDRAULICO</td>
+                                <td colspan="2">
+                                    SI: 
+                                    <input type="checkbox" name="Filtro_De_Hidraulico" id="Filtro_De_Hidraulico" value="1">
+                                </td>   
+                                <td colspan="2">
+                                    NO:         
+                                    <input type="checkbox" name="Filtro_De_Hidraulico" id="Filtro_De_Hidraulico" value="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="7">OBSERVACIONES GENERALES</td>
+                            </tr>
+                            <tr>
+                                <td colspan="7">
+                                    <textarea type="text" name="Observaciones_Generales" id="Observaciones_Generales" class="InputObservaciones"> </textarea>
+                                </td>
+                            </tr>
+                            <tr><th colspan="7">REPORTE DE CONDICIONES PELIGROSAS EN EL ÁREA DE TRABAJO</th></tr>
+                            <tr>
+                                <th colspan="1">FECHA</th>
+                                <th colspan="1">CONSECUTIVO</th>
+                                <th colspan="5">DESCRIPCIÓN/OBSERVACIONES</th>
+                            </tr>
+                            <tr>
+                                <th><script>document.write(FechaCompleta)   </script> </th>
+                                <th><input type="text" name="ConsecutivoCondiciones" id="ConsecutivoCondiciones" class="inputConsecutivo"></th>
+                                <th colspan="5"><input type="text" name="DescripcionCondiciones" id="DescripcionCondiciones" class="inputConsecutivo"></th>
+                            </tr>
+                            <tr><th colspan="7">REPORTE DE SOLICITUD DE MANTENIMIENTO</th></tr>
+                            <tr>
+                                <th colspan="1">FECHA</th>
+                                <th colspan="1">CONSECUTIVO</th>
+                                <th colspan="5">DESCRIPCIÓN DE LA FALLA/OBSERVACIONES</th>
+                            </tr>
+                            <tr>
+                                <th><script>document.write(FechaCompleta)   </script> </th>
+                                <th><input type="text" name="ConsecutivoSolicitud" id="ConsecutivoSolicitud" class="inputConsecutivo"></th>
+                                <th colspan="5"><input type="text" name="DescripcionSolicitud" id="DescripcionSolicitud" class="inputConsecutivo"></th>
+                            </tr>
+                            <tr>
+                                <td colspan="6">
+                                    <label class="LabelMantenimiento">El equipo presenta alguna falla: </label>
+                                    <select name="Mantenimiento" id="Mantenimiento">
+                                        <option value="3">-</option>
+                                        <option value="2">SI</option>
+                                        <option value="1">NO</option>
+                                    </select>
+                                    <input type="hidden" value="1" name="Estado" id="Estado">
+                                    <input type="hidden" value="1" name="EstadoV" id="EstadoV">
+                                    <input type="hidden" value="2" name="EstadoF" id="EstadoF">
+                                    <input type="hidden" name="Evento_Inesperado" id="Evento_Inesperado" value="NULL">
+                                </td>
+                                <td>
+                                    <button type="submit" class="boton_enviar">Enviar</button>
+                                </td>
+                            </tr>   
+                            
+                        </tbody>
+                    </table>
+        </form>
+    </body>
+</html>

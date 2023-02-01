@@ -1,0 +1,44 @@
+<%- include('../layouts/headerAdministrador') -%>
+<h3>modificar mis datos</h3><br>
+<% if(supervisor) {%>
+    <form action="Update" method="POST" id="Formulario">
+        <label for="">Primer Nombre: </label>
+        <input type="text" id="Nombre1" name="Nombre1" placeholder="Primer nombre" value="<%= supervisor[0].Nombre1 %> " required><br>
+        <br>
+        <label for="">Segundo Nombre: </label>
+        <input type="text" id="Nombre2" name="Nombre2" placeholder="Segundo nombre" value="<%= supervisor[0].Nombre2 %> " required><br>
+        <br>
+        <label for="">Primer Apellido: </label>
+        <input type="text" id="Apellido1" name="Apellido1" placeholder="Primer apellido" value="<%= supervisor[0].Apellido1 %> " required><br>
+        <br>
+        <label for="">Segundo Apellido: </label>
+        <input type="text" id="Apellido2" name="Apellido2" placeholder="Segundo apellido" value="<%= supervisor[0].Apellido2 %> " required><br>
+        <br>
+        <label for="">Tipo de Documento: </label>
+        <select id="TipoDoc" name="TipoDoc">
+            <option value="1" <%= supervisor[0].TipoDoc=='1' ? "selected" : "" %>>Cedula</option>
+            <option value="2" <%= supervisor[0].TipoDoc=='2' ? "selected" : "" %>>Tarjeta de identidad</option>
+        </select><br>
+        <br>
+        <label for="">Telefono: </label>
+        <input type="number" id="Telefono" name="Telefono" placeholder="Numero Telefono" value="<%= supervisor[0].Telefono %>" required><br>
+        <br>
+        <input type="hidden" value="1" name="Estado" id="Estado">
+        <input type="hidden" id="ID" name="ID" value="<%= supervisor[0].ID %>">
+        <% if(usuario){ %>
+            <input type="hidden" id="idUsuario" name="idUsuario" value="<%= usuario[0].ID %>">
+            <label for="">Documento: </label>
+            <input type="number" value="<%= usuario[0].Email %>" required disabled><br>
+            <input type="hidden" id="Documentonumero" name="Documentonumero"  value="<%= usuario[0].Email %>">
+            <br>
+            <label for="">Contraseña: </label>
+            <input type="password" id="claveUsuario" name="claveUsuario" value="<%= usuario[0].Clave %>" required><br>
+            <br>
+            <input type="hidden" value="3" id="rolUsuario" name="rolUsuario">
+            <input type="hidden" value="1" name="estadoUsuario" id="estadoUsuario">
+            <input type="hidden" value="1" name="asignarUsuario" id="asignarUsuario">
+        <% } %> 
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+<% } %>
+<%- include('../layouts/footerAdministrador') -%>

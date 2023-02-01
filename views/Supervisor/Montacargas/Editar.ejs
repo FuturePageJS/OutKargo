@@ -1,0 +1,25 @@
+<%- include('../../layouts/headerSupervisor'); -%>
+<h3>Editar montacargas</h3>
+<% if (montacargas) { %>
+    <form action="Update" method="POST" id="Formulario">
+        <label for="">Numero: </label>
+        <input type="text" id="Numero" name="Numero" placeholder="Ingrese el numero" value="<%= montacargas[0].Numero%>"><br>
+        <br>
+        <label for="">Marca: </label>
+        <input type="text" id="Marca" name="Marca" placeholder="Ingrese la marca" value="<%= montacargas[0].Marca%>"><br>
+        <br>
+        <label for="">Modelo: </label>
+        <input type="text" id="Modelo" name="Modelo" placeholder="Ingrese la Modelo" value="<%= montacargas[0].Modelo%>"><br>
+        <br>
+        <label for="">Serie: </label>
+        <input type="text" id="Serie" name="Serie" placeholder="Ingrese la serie" value="<%= montacargas[0].Serie%>"><br>
+        <br>    
+        <label for="">Horometro: </label>
+        <input type="text" id="Horometro" name="Horometro" placeholder="Ingrese la serie" value="<%= montacargas[0].HorometroI%>"><br>
+        <br> 
+        <input type="hidden" value="1" name="estado" id="estado">
+        <input type="hidden" name="ID" id="ID" value="<%= montacargas[0].ID %>">
+        <button type="submit" class="btn btn-warning">Enviar</button>
+    </form>
+<% } %>
+<%- include('../../layouts/FooterSupervisor'); -%>  

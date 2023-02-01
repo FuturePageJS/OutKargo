@@ -1,0 +1,165 @@
+<%- include('../../layouts/headerSupervisor'); -%>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-warning text-dark">
+          <h5 class="modal-title" id="exampleModalLabel">Montacargas</h5>
+          <button type="button" class="close bg-danger text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/Supervisor/Montacargas/Crea/Save/" method="POST">
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Ingrese el numero del Montacargas:</label>
+              <input type="number" class="form-control" id="NumeroMontacargas" name="NumeroMontacargas" required>
+            </div>
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Ingrese la marca:</label>
+                <input type="text" class="form-control" id="Marca" name="Marca" required>
+              </div>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Ingrese el modelo:</label>
+                <input type="text" class="form-control" id="Modelo" name="Modelo" required>
+              </div>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Ingrese el serial:</label>
+                <input type="text" class="form-control" id="Serie" name="Serie" required>
+              </div>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Ingrese el horometro:</label>
+                <input type="number" class="form-control" id="horometroI" name="horometroI" required>
+              </div>
+            <div class="modal-footer">
+                <input type="hidden" class="form-control" id="Estado" name="Estado" value="1">
+                <input type="hidden" class="form-control" id="EstadoF" name="EstadoF" value="1">
+                <button type="submit" class="btn btn-success">Continuar.</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>  
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+    <div class="main-cards">
+        <button  data-toggle="modal" data-target="#exampleModal" >
+            <div class="card">
+                <div class="card-inner">
+                <p class="text-blue">Crear montacargas</p>
+                <span class="material-symbols-outlined">
+                    forklift
+                    </span>
+                </div>
+            </div>
+        </button>
+    </div>
+<br>
+<table class="table table-striped table-hover  table-sm" name="ListaEC" id="ListaEC">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">No.<br>Montacargas </th>
+        <th scope="col">Marca </th>
+        <th scope="col">Modelo</th>
+        <th scope="col">Serial</th>
+        <th scope="col">Horometro</th>
+        <th scope="col">Acciónes</th>
+      </tr>
+    </thead>
+    <tbody class="table ">
+        <% montacargas.forEach((montacargas)=> { %>
+            <% if (montacargas.Estado == 1) { %>
+                <%if (montacargas.EstadoF == 1) { %>
+                    <tr>
+                        <th>
+                            <%= montacargas.Numero %> 
+                        </th>
+                        <th>
+                            <%= montacargas.Marca %> 
+                        </th>
+                        <th>
+                            <%= montacargas.Modelo %> 
+                        </th>
+                        <th>
+                            <%= montacargas.Serie %> 
+                        </th>
+                        <th>
+                            <%= montacargas.HorometroI %> 
+                        </th>
+                        <th>
+                            <a class="btn btn-sm btn-warning bg-warning text-white" href="Editar/<%= montacargas.ID %>">Editar 
+                                <span class="material-symbols-outlined icono">
+                                    warning
+                                </span>
+                            </a>
+                            <button class="btn btn-sm btn-danger bg-danger"  onclick="Borrar('<%= montacargas.ID %>')">Borrar 
+                                <span class="material-symbols-outlined icono">
+                                    dangerous
+                                </span>
+                            </button>
+                        </th>
+                   </tr> 
+                <% } %>
+                <%if (montacargas.EstadoF == 2) { %>
+                    <tr class="table-danger">
+                        <th>
+                            <%= montacargas.Numero %> 
+                        </th>
+                        <th>
+                            <%= montacargas.Marca %> 
+                        </th>
+                        <th>
+                            <%= montacargas.Modelo %> 
+                        </th>
+                        <th>
+                            <%= montacargas.Serie %> 
+                        </th>
+                        <th>
+                            <%= montacargas.HorometroI %> 
+                        </th>
+                         <th>
+                            <a class="btn btn-sm btn-warning bg-warning text-white" href="Editar/<%= montacargas.ID %>">Editar 
+                                <span class="material-symbols-outlined icono">
+                                    warning
+                                </span>
+                            </a>
+                            <button class="btn btn-sm btn-danger bg-danger" onclick="Borrar()" >Borrar 
+                                <span class="material-symbols-outlined icono">
+                                    dangerous
+                                </span>
+                            </button>
+                        </th>
+                   </tr> 
+                <% } %>
+            <% } %>
+        <% }) %>    
+    </tbody>
+  </table>
+  <script>
+    function Borrar(id) {
+        console.log(id)
+        Swal.fire({
+        title: 'Estas seguro de eliminar el montacargas?',
+        text: "Esta acción podra traer errores!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar!',
+        cancelButtonText: 'No, Cancelar!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+            'Eliminado!',
+            'El montacargas fue eliminado.',
+            'success'
+            ).then(()=>{
+                window.location='/Supervisor/Montacargas/Borrar/'+id
+            })
+        }
+        })
+    }
+    </script>
+  <!-- href="Borrar/<%=// montacargas.ID %> -->
+<%- include('../../layouts/FooterSupervisor'); -%>  

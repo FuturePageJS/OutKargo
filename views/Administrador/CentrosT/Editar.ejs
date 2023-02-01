@@ -1,0 +1,16 @@
+<%- include('../../layouts/headerAdministrador'); -%>
+<h3>Editar operador</h3>
+<% if (CentrosT) { %>
+  <form action="Update" method="POST">
+    <div class="form-group">
+      <label for="recipient-name" class="col-form-label">Nombre:</label>
+      <input type="text" class="form-control" id="Nombre" name="Nombre" value="<%= CentrosT[0].Nombre %>" required>   
+      <input type="hidden" name="Estado" id="Estado" value="1">
+      <input type="hidden" name="ID" id="ID" value="<%= CentrosT[0].ID%>">
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-success">Continuar.</button>
+  </div>
+  </form>
+<% } %>
+<%- include('../../layouts/footerAdministrador'); -%>  

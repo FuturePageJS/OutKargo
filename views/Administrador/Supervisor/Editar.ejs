@@ -1,0 +1,55 @@
+<%- include('../../layouts/headerAdministrador'); -%>
+<h3>Editar supervisor</h3>
+<% if (supervisor) { %>
+    <form action="Update" method="POST">
+        <div class="form-group">
+          <label for="recipient-name" class="col-form-label">Primer nombre:</label>
+          <input type="text" class="form-control" id="Nombre1" name="Nombre1" required value="<%= supervisor[0].Nombre1 %>">
+        </div>
+        <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Segundo nombre:</label>
+            <input type="text" class="form-control" id="Nombre2" name="Nombre2" placeholder="Deje vacio para omitir" value="<%= supervisor[0].Nombre2 %>"> 
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Primer apellido:</label>
+            <input type="text" class="form-control" id="Apellido1" name="Apellido1" required value="<%= supervisor[0].Apellido1 %>">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Segundo apellido:</label>
+            <input type="text" class="form-control" id="Apellido2" name="Apellido2" required value="<%= supervisor[0].Apellido2 %>">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Tipo de documento:</label>
+            <select class="form-select" aria-label="Default select example" name="TipoDoc" id="TipoDoc" value="<%= supervisor[0].TipoDoc %> ">
+                <option value="1">Cedula</option>
+                <option value="2">Tarjeta de identidad</option>
+              </select>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Numero  celular:</label>
+            <input type="number" class="form-control" name="Telefono" id="Telefono" required value="<%= supervisor[0].Telefono %>">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Documento:</label>
+            <select class="form-select" aria-label="Default select example" name="ID_Usuario" id="ID_Usuario" disabled>
+                <% usuarios.forEach((usuarios)=>{ %> 
+                    <% if(usuarios.ID == supervisor[0].ID_Usuario) { %> 
+                        <option value="<%= usuarios.ID %>"><%= usuarios.Email %> </option>
+                    <% } %> 
+                <% }) %>
+              </select>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Centro de trabajo:</label>
+            <% centros.forEach((centros)=>{ %> 
+                <input type="text" class="form-control" placeholder="<%= centros.Nombre %>"  disabled >
+                <input type="hidden" name="ID_Centro" id="ID_Centro" value="<%= supervisor[0].ID_Centro %>">
+                <input type="hidden" class="form-control" id="ID_Usuario" name="ID_Usuario" value="<%= supervisor[0].ID %>">
+            <% }) %>
+          </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Continuar.</button>
+        </div>
+      </form>
+<% } %>
+<%- include('../../layouts/FooterAdministrador'); -%>  

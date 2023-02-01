@@ -1,0 +1,135 @@
+<%- include('../layouts/headerSupervisor'); -%>
+  <div class="main-cards">
+
+    <div class="card">
+      <div class="card-inner">
+        <p class="text-blue">MONTACARGAS</p>
+        <span class="material-symbols-outlined">
+          forklift
+        </span>
+      </div>
+      <span class="text-blue font-weight-bold">
+        <% totalmontacargas = 0 %> 
+        <% montacargas.forEach((montacargas)=> { %>
+          <% totalmontacargas = 1 + totalmontacargas %>
+        <% }) %>
+        <%= totalmontacargas %> 
+      </span>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+        <p class="text-blue">CENTROS DE TRABAJO</p>
+        <span class="material-symbols-outlined">
+          domain
+        </span>
+      </div>
+      <span class="text-blue font-weight-bold">
+        <% totalcentros = 0 %> 
+        <% centrost.forEach((centrost)=> { %>
+          <% totalcentros = 1 + totalcentros %>
+        <% }) %>
+        <%= totalcentros %> 
+      </span>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+        <p class="text-blue">OPERADORES</p>
+        <span class="material-symbols-outlined">
+          group
+          </span>
+      </div>
+      <span class="text-blue font-weight-bold">
+        <% totaloperador = 0 %> 
+        <% operador.forEach((operador)=> { %>
+          <% totaloperador = 1 + totaloperador %>
+        <% }) %>
+        <%= totaloperador %>  
+      </span>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+        <p class="text-blue">SNORKLIFT</p>
+        <span class="material-symbols-outlined">
+          filter_list
+          </span>
+      </div>
+      <span class="text-blue font-weight-bold">
+        <% totallistas = 0 %> 
+        <% listas.forEach((listas)=> { %>
+          <% totallistas = 1 + totallistas %>
+        <% }) %>
+        <%= totallistas %>  
+      </span>
+    </div>
+
+  </div>
+
+  <div class="main-cards">
+    <div class="card">
+      <div class="card-inner">
+        <p class="text-blue">ELECTRICA CONTRABALANCEADA</p>
+        <span class="material-symbols-outlined">
+          list
+          </span>
+      </div>
+      <span class="text-blue font-weight-bold">
+        <% totallistas = 0 %> 
+        <% listaec.forEach((listaec)=> { %>
+          <% totallistas = 1 + totallistas %>
+        <% }) %>
+        <%= totallistas %>
+      </span>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+        <p class="text-blue">ELECTRICA, PASILLO ANGOSTO</p>
+        <span class="material-symbols-outlined">
+          checklist
+          </span>
+      </div>
+      <span class="text-blue font-weight-bold">
+        <% totallistas = 0 %> 
+        <% listaepa.forEach((listaepa)=> { %>
+          <% totallistas = 1 + totallistas %>
+        <% }) %>
+        <%= totallistas %>
+      </span>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+        <p class="text-blue">ELECTRICA, TOMA PEDIDO</p>
+        <span class="material-symbols-outlined">
+          format_list_numbered
+          </span>
+      </div>
+      <span class="text-blue font-weight-bold">
+        <% totallistas = 0 %> 
+        <% listaetp.forEach((listaetp)=> { %>
+          <% totallistas = 1 + totallistas %>
+        <% }) %>
+        <%= totallistas %> 
+      </span>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+        <p class="text-blue">COMBUSTIÓN INTERNA</p>
+        <span class="material-symbols-outlined">
+          fact_check
+          </span>
+      </div>
+      <span class="text-blue font-weight-bold">
+        <% totallistas = 0 %> 
+        <% listaci.forEach((listaci)=> { %>
+          <% totallistas = 1 + totallistas %>
+        <% }) %>
+        <%= totallistas %>  
+      </span>
+    </div>
+  </div>
+<%- include('../layouts/FooterSupervisor'); -%>

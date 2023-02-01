@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Moon+Dance&display=swap');
+
+*{
+    margin: auto;
+    border-spacing: 3px;
+    font-size: 10px;    
+    
+}
+
+.Editar{
+    text-align: center;
+}
+
+.EspacioLista{
+    padding: 30px;
+    font-size: 25px;
+    font-family: 'Moon Dance', cursive;
+}
+
+.ImagenLista{
+    height: 50px;
+}
+
+.InputObservaciones{
+    width: 99%;
+    height: 50PX;
+}
+
+.LabelMantenimiento{
+    font-size: 20px;
+}
+
+.boton_enviar{
+    width: 100%;
+    height: 100%;
+    background: #ff7300;
+    color: #ffffff;
+    font-size: 20px;
+    border-color: #ffffff;
+    border-radius: 5px;
+    border: 5px;
+}
+
+.boton_enviar:hover{
+    background: #c75a00;
+}
+
+.boton-verificar{
+    background: #2e8f39;
+    padding: 10px;
+    margin: 1xpx;
+    border-radius: 5px;
+    color: #ffffff;
+    font-family: monospace;
+    font-size: 12px;
+    text-decoration: none;
+}
+.boton-verificar:hover {
+    background: #2a8336;
+    padding: 10px;
+    margin: 1xpx;
+    border-radius: 5px;
+    color: #ffffff;
+    font-family: monospace;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.boton-mantenimiento{
+    background: rgb(255, 70, 70);
+    padding: 10px;
+    margin: 1xpx;
+    border-radius: 5px;
+    color: #ffffff;
+    font-family: monospace;
+    font-size: 12px;
+    text-decoration: none;
+}
+.boton-mantenimiento:hover {
+    background: #8f2e2e;
+    padding: 10px;
+    margin: 1xpx;
+    border-radius: 5px;
+    color: #ffffff;
+    font-family: monospace;
+    font-size: 12px;
+    text-decoration: none;
+}
+.inputConsecutivo{
+    width: 98%;
+    height: 20PX;
+}

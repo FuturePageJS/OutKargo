@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OutKargo</title>
+    <link rel="icon" href="/img/FAVICON.ico"/>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <form action="Update" method="POST" id="Formulario">
+        <div align="center" class="Tabla Listas-De-Chequeo">
+            <% listaci.forEach((listaci)=> { %>
+                <% if(listaci.ID == id){   %>
+                    <table class="table table-striped"  border="1">
+                        <thead class="table">
+                            <tr>
+                                <th rowspan="3" colspan="1"><img src="/img/Logo.png" class="ImagenLista"></th>
+                                <th rowspan="3" colspan="2">REGISTRO DE INSPECCIÓN PREOPERACIONAL DE MONTACARGAS</th>
+                                <th colspan="2">CÓDIGO </th>
+                                <th colspan="2">F-105-1 </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">FECHA </th>
+                                <th colspan="2">06/02/2018 </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">VERSIÓN </th>
+                                <th colspan="2">2 </th>
+                            </tr>
+                        </thead>
+                        <tbody class="tablaAbajo">
+                            <tr class="tr-editar">
+                                <td scope="col" colspan="1"><b>CLASE:</b><br> 5. MOTOR COMBUSTION INTERNA </td>
+                                <td scope="col" colspan="2"> 
+                                    <% ID_Montacargas.forEach((ID_Montacargas)=> { %>
+                                        <% if(ID_Montacargas.ID == listaci.ID_Montacargas){   %>
+                                            <b>No.MONTACARGA:</b>  <%= ID_Montacargas.Numero %>
+                                        <% } %> 
+                                    <% }) %> 
+                                </td>
+                                <td scope="col" colspan="2">
+                                    <% ID_Montacargas.forEach((ID_Montacargas)=> { %>
+                                        <% if(ID_Montacargas.ID == listaci.ID_Montacargas){   %>
+                                            <b>MARCA:</b> <%= ID_Montacargas.Marca %>
+                                        <% } %> 
+                                    <% }) %> 
+                                </td>
+                                <td scope="col" colspan="2">
+                                    <% ID_Montacargas.forEach((ID_Montacargas)=> { %>
+                                        <% if(ID_Montacargas.ID == listaci.ID_Montacargas){   %>
+                                            <b>SERIAL:</b> <%= ID_Montacargas.Serie %>
+                                        <% } %> 
+                                    <% }) %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td scope="col">
+                                    <b>FECHA:</b> <%= listaci.Fecha %> 
+                                </td>
+                                <td scope="col" colspan="6">
+                                    <% operador.forEach((operador)=> { %>
+                                        <% if(operador.ID == listaci.ID_Operador){   %>
+                                            <b>OPERADOR:</b> <%= operador.Nombre1 %> <%= operador.Nombre2 %> <%= operador.Apellido1 %> <%= operador.Apellido2 %>
+                                        <% } %> 
+                                    <% }) %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td scope="col"> 
+                                    <% if (listaci.Turno == 1){%> <p class="btn btn-success"><b>TURNO: </b>6:00 A.M - 2:00 P.M</p> <% } %> 
+                                    <% if (listaci.Turno == 2){%> <p class="btn btn-danger"><b>TURNO: </b>2:00 P.M - 10:00 P.M.</p> <% } %> 
+                                    <% if (listaci.Turno == 3){%> <p class="btn btn-success"><b>TURNO: </b>10:00 P.M - 6:00 A.M</p> <% } %> 
+                                    <% if (listaci.Turno == 4){%> <p class="btn btn-danger"><b>TURNO: </b>6:30 A.M - 4:30 P.M</p> <% } %> 
+                                    <% if (listaci.Turno == 5){%> <p class="btn btn-success"><b>TURNO: </b>8:00 A.M - 5:00 P.M</p> <% } %> 
+                                    <% if (listaci.Turno == 6){%> <p class="btn btn-danger"><b>TURNO: </b>7:00 A.M - 5:00 P.M</p> <% } %> 
+                                </td>
+                                <td scope="col" colspan="5">
+                                    <% CentrosT.forEach((CentrosT)=> { %>
+                                        <% if(CentrosT.ID == listaci.ID_CentrosT){   %>
+                                            <b>CENTROS DE TRABAJO:</b> <%= CentrosT.Nombre %>
+                                        <% } %> 
+                                    <% }) %> 
+                                </td>
+                                <td scope="col">
+                                    <% SeccionesT.forEach((SeccionesT)=> { %>
+                                        <% if(SeccionesT.ID == listaci.ID_SeccionesT){   %>
+                                            <b>SECCIÓN:</b> <%= SeccionesT.Nombre %>
+                                        <% } %> 
+                                    <% }) %> 
+                                </td>
+                            </tr>
+                                <td scope="col" colspan="2 ">
+                                    <b>Horometro Inicial:</b><%= listaci.HorometroI %>
+                                </td>
+                                <td scope="col" colspan="7">
+                                    <b>Horometro Final:</b><input type="number" name="HorometroF" id="HorometroF" required>
+                                    <input type="hidden" name="HorometroI" id="HorometroI" value="<%= listaci.HorometroI %> ">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><b>ASPECTOS DE EVALUACIÓN</b></td>
+                                <td colspan="4"><b>CONDICIÓN</b></td>
+                            </tr>
+                            <tr>
+                                <th rowspan="9">AUTO INSPECCIÓN OPERADOR</th>
+                                <td colspan="2">CARNÉ DE SERVICIOS MÉDICOS</td>
+                                <td colspan="4">
+                                    <% if (listaci.Carnet_De_Servicios_Medicos == 1){%> <p class="btn btn-success">SI</p> <% } %> 
+                                    <% if (listaci.Carnet_De_Servicios_Medicos == 2){%> <p class="btn btn-danger">NO</p> <% } %> 
+                                </td>                            
+                            </tr>
+                            <tr>
+                                <td colspan="2">CONSUME MEDICAMENTOS</td>
+                                <td colspan="4">
+                                    <% if (listaci.Consume_Medicamentos == 1){%> <p class="btn btn-success">SI</p> <% } %> 
+                                    <% if (listaci.Consume_Medicamentos == 2){%> <p class="btn btn-danger">NO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <th rowspan="7">E.P.P</th>
+                                <td>CASCO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Casco == 1){%> <p class="btn btn-success">SI</p> <% } %> 
+                                    <% if (listaci.Casco == 2){%> <p class="btn btn-danger">NO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>    
+                                <td>GAFAS DE PROTECCION</td>
+                                <td colspan="4">
+                                    <% if (listaci.Gafas_De_Proteccion == 1){%> <p class="btn btn-success">SI</p> <% } %> 
+                                    <% if (listaci.Gafas_De_Proteccion == 2){%> <p class="btn btn-danger">NO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PROTECTORES AUDITIVOS</td>
+                                <td colspan="4">
+                                    <% if (listaci.Protectores_Auditivos == 1){%> <p class="btn btn-success">SI</p> <% } %> 
+                                    <% if (listaci.Protectores_Auditivos == 2){%> <p class="btn btn-danger">NO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PROTECCIÓN RESPIRATORIA</td>
+                                <td colspan="4">
+                                    <% if (listaci.Proteccion_Respiratoria == 1){%> <p class="btn btn-success">SI</p> <% } %> 
+                                    <% if (listaci.Proteccion_Respiratoria == 2){%> <p class="btn btn-danger">NO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>GUANTES</td>
+                                <td colspan="4">
+                                    <% if (listaci.Guantes == 1){%> <p class="btn btn-success">SI</p> <% } %> 
+                                    <% if (listaci.Guantes == 2){%> <p class="btn btn-danger">NO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>UNIFORME</td>
+                                <td colspan="4">
+                                    <% if (listaci.Uniforme == 1){%> <p class="btn btn-success">SI</p> <% } %> 
+                                    <% if (listaci.Uniforme == 2){%> <p class="btn btn-danger">NO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>BOTAS PUNTA DE ACERO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Botas_Punta_De_Acero == 1){%> <p class="btn btn-success">SI</p> <% } %> 
+                                    <% if (listaci.Botas_Punta_De_Acero == 2){%> <p class="btn btn-danger">NO</p> <% } %> 
+                                </td>
+                            </tr>
+    
+                            <tr>
+                                <th rowspan="31">INSPECCIÓN VISUAL</th>
+                                <th rowspan="3">AREA DE TRABAJO</th>
+                                <td>LIMPIEZA</td>
+                                <td colspan="4">
+                                    <% if (listaci.Limpieza == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Limpieza == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PRESENCIA DE DERRAMES</td>
+                                <td colspan="4">
+                                    <% if (listaci.Presencia_De_Derrames == 1){%> <p class="btn btn-success">SI</p> <% } %> 
+                                    <% if (listaci.Presencia_De_Derrames == 2){%> <p class="btn btn-danger">NO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>OBSTÁCULOS</td>
+                                <td colspan="4">
+                                    <% if (listaci.Obstaculos == 1){%> <p class="btn btn-success">SI</p> <% } %> 
+                                    <% if (listaci.Obstaculos == 2){%> <p class="btn btn-danger">NO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <th rowspan="8">CARROCERÍA</th>
+                                <td>PINTURA Y LIMPIEZA EXTERIOR</td>
+                                <td colspan="4">
+                                    <% if (listaci.Pintura_Y_Limpieza_Exterior == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Pintura_Y_Limpieza_Exterior == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>COJINERIA DE LA SILLA</td>
+                                <td colspan="4">
+                                    <% if (listaci.Cojineria_De_La_Silla == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Cojineria_De_La_Silla == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>CINTURON DE SEGURIDAD</td>
+                                <td colspan="4">
+                                    <% if (listaci.Cinturon_De_Seguridad == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Cinturon_De_Seguridad == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ESPEJOS LATERALES</td>
+                                <td colspan="4">
+                                    <% if (listaci.Espejos_Laterales == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Espejos_Laterales == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PEDALES DE FRENO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Pedales_De_Freno == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Pedales_De_Freno == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>FRENO DE MANO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Freno_De_Mano == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Freno_De_Mano == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PEDALES DE ACELERACIÓN</td>
+                                <td colspan="4">
+                                    <% if (listaci.Pedales_De_Aceleracion == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Pedales_De_Aceleracion == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>CONTROL DE MARCHA ADELANTE Y ATRÁS</td>
+                                <td colspan="4">
+                                    <% if (listaci.Control_De_Marchas_Adelante_Y_Atras == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Control_De_Marchas_Adelante_Y_Atras == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <th rowspan="3">LLANTAS</th>
+                                <td>ESTADO GENERAL</td>
+                                <td colspan="4">
+                                    <% if (listaci.Estado_General == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Estado_General == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>RUEDAS MACIZAS</td>
+                                <td colspan="4">
+                                    <% if (listaci.Ruedas_Macizas == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Ruedas_Macizas == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>LLANTAS NEUMÁTICAS (PRESIÓN)</td>
+                                <td colspan="4">
+                                    <% if (listaci.LLantas_Neumaticas == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.LLantas_Neumaticas == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                           
+                            <tr>
+                                <td colspan="2">HORQUILLAS</td>
+                                <td colspan="4">
+                                    <% if (listaci.Horquillas == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Horquillas == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">CARRO PORTA HORQUILLAS</td>
+                                <td>ESTADO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Carro_Porta_Horquillas_Estado == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Carro_Porta_Horquillas_Estado == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ENGRASE</td>
+                                <td colspan="4">
+                                    <% if (listaci.Carro_Porta_Horquillas_Engrase == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Carro_Porta_Horquillas_Engrase == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">CADENAS DE LEVANTE</td>
+                                <td>ESTADO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Cadenas_De_Levante_Estado == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Cadenas_De_Levante_Estado == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>TENSIÓN</td>
+                                <td colspan="4">
+                                    <% if (listaci.Cadenas_De_Levante_Tension == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Cadenas_De_Levante_Tension == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">CILINDROS DE LEVANTE <br> CENTRALES</td>
+                                <td>ESTADO</td>
+                                <td colspan="4">
+                                    <% if (listaci.	Cilindros_De_Levante_Central_Estado == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.	Cilindros_De_Levante_Central_Estado == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>FUGAS</td>
+                                <td colspan="4">
+                                    <% if (listaci.Cilindros_De_Levante_Central_Fugas == 1){%> <p class="btn btn-success">SI</p> <% } %> 
+                                    <% if (listaci.Cilindros_De_Levante_Central_Fugas == 2){%> <p class="btn btn-danger">NO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">CILINDROS DE LEVANTE <br> LATERALES</td>
+                                <td>ESTADO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Cilindros_De_Levante_Laterales_Estado == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Cilindros_De_Levante_Laterales_Estado == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>FUGAS</td>
+                                <td colspan="4">
+                                    <% if (listaci.Cilindros_De_Levante_Laterales_Fugas == 1){%> <p class="btn btn-success">SI</p> <% } %> 
+                                    <% if (listaci.Cilindros_De_Levante_Laterales_Fugas == 2){%> <p class="btn btn-danger">NO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">CILINDROS DE DIRECCIÓN</td>
+                                <td>ESTADO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Cilindros_De_Direccion_Estado == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Cilindros_De_Direccion_Estado == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>FUGAS</td>
+                                <td colspan="4">
+                                    <% if (listaci.Cilindros_De_Direccion_Fugas == 1){%> <p class="btn btn-success">SI</p> <% } %> 
+                                    <% if (listaci.Cilindros_De_Direccion_Fugas == 2){%> <p class="btn btn-danger">NO</p> <% } %> 
+                                </td>
+                            </tr>.
+                            <tr>
+                                <td rowspan="2">CILINDROS DE INCLINACION</td>
+                                <td>ESTADO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Cilindros_De_Inclinacion_Estado == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Cilindros_De_Inclinacion_Estado == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>FUGAS</td>
+                                <td colspan="4">
+                                    <% if (listaci.Cilindros_De_Inclinacion_Fugas == 1){%> <p class="btn btn-success">SI</p> <% } %> 
+                                    <% if (listaci.Cilindros_De_Inclinacion_Fugas == 2){%> <p class="btn btn-danger">NO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">TERMINALES DE DIRECCIÓN</td>
+                                <td>ESTADO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Terminales_De_Direccion_Estado == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Terminales_De_Direccion_Estado == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>FUGAS</td>
+                                <td colspan="4">
+                                    <% if (listaci.Terminales_De_Direccion_Fugas == 1){%> <p class="btn btn-success">SI</p> <% } %> 
+                                    <% if (listaci.Terminales_De_Direccion_Fugas == 2){%> <p class="btn btn-danger">NO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">MANGUERAS Y TUBERÍA DEL SISTEMA HIDRÁULICO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Mangueras_Y_Tuberia_Del_Sistema_Hidraulico == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Mangueras_Y_Tuberia_Del_Sistema_Hidraulico == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">PALANCAS DE MANDO Y CONTROL HIDRÁULICO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Palancas_De_Mando_Y_Control_Hidraulico == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Palancas_De_Mando_Y_Control_Hidraulico == 2){%> <p class="btn btn-danger">JUEGO</p> <% } %> 
+                                    <% if (listaci.Palancas_De_Mando_Y_Control_Hidraulico == 3){%> <p class="btn btn-danger">FUGAS</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <th rowspan="2">SISTEMA DE FRENOS</th>
+                                <td colspan="2">PRINCIPAL(PARADA DE MAQUINA)</td>
+                                <td colspan="4">
+                                    <% if (listaci.Principal == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Principal == 2){%> <p class="btn btn-danger">MALO</p> <% } %>
+                                </td> 
+                            </tr>
+                            <tr>
+                                <td colspan="2">PARQUEO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Parqueo == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Parqueo == 2){%> <p class="btn btn-danger">MALO</p> <% } %>
+                                </td> 
+                            </tr>
+                            <tr>
+                                <th rowspan="8">SEÑALES DE SEGURIDAD</th>
+                                <td colspan="2">PITO DE BOCINA</td>
+                                <td colspan="4">
+                                    <% if (listaci.Pito_De_Bocina == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Pito_De_Bocina == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">ALARMA DE SEÑAL DE REVERSA</td>
+                                <td colspan="4">
+                                    <% if (listaci.Alarma_De_Señal_De_Reversa == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Alarma_De_Señal_De_Reversa == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">STROBER - LUZ ESTROBOSCÓPICA</td>
+                                <td colspan="4">
+                                    <% if (listaci.Strober_Luz_Estroboscopica == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Strober_Luz_Estroboscopica == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">LUCES DIRECCIONALES</td>
+                                <td colspan="4">
+                                    <% if (listaci.Luces_Direccionales == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Luces_Direccionales == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">LUCES DEL FRENO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Luces_Del_Freno == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Luces_Del_Freno == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">LUCES MARCHA ADELANTE</td>
+                                <td colspan="4">
+                                    <% if (listaci.Luces_Marcha_Delante == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Luces_Marcha_Delante == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">LUCES MARCHA ATRAS</td>
+                                <td colspan="4">
+                                    <% if (listaci.Luces_Marcha_Atras == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Luces_Marcha_Atras == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" rowspan="1">EXTINTOR DE INCENDIOS</td>
+                                <td colspan="4">
+                                    <% if (listaci.Extintor_De_Incendios == 1){%> <p class="btn btn-success">VIGENTE Y/O BUENO<br> </p> <% } %> 
+                                    <% if (listaci.Extintor_De_Incendios == 2){%> <p class="btn btn-danger">VENCIDO Y/O DAÑADO</p> <% } %> 
+                                </td>
+                            </tr>
+    
+                            <tr>
+                                <th rowspan="8">NIVELES</th>
+                                <td colspan="2">LIQUIDO REFRIGERANTE DEL RADIADOR</td>
+                                <td colspan="4">
+                                    <% if (listaci.Liquido_Refrigerante_Del_Radiador == 1){%> <p class="btn btn-success">OPTIMO</p> <% } %> 
+                                    <% if (listaci.Liquido_Refrigerante_Del_Radiador == 2){%> <p class="btn btn-danger">BAJO</p> <% } %> 
+                                    <% if (listaci.Liquido_Refrigerante_Del_Radiador == 3){%> <p class="btn btn-danger">FUGAS</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">ELECTROLITO DE LA BATERIA</td>
+                                <td colspan="4">
+                                    <% if (listaci.Electrolito_De_La_Bateria == 1){%> <p class="btn btn-success">OPTIMO</p> <% } %> 
+                                    <% if (listaci.Electrolito_De_La_Bateria == 2){%> <p class="btn btn-danger">BAJO</p> <% } %> 
+                                    <% if (listaci.Electrolito_De_La_Bateria == 3){%> <p class="btn btn-danger">FUGAS</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">LIQUIDO DE FRENOS</td>
+                                <td colspan="4">
+                                    <% if (listaci.Liquido_De_Frenos == 1){%> <p class="btn btn-success">OPTIMO</p> <% } %> 
+                                    <% if (listaci.Liquido_De_Frenos == 2){%> <p class="btn btn-danger">BAJO</p> <% } %> 
+                                    <% if (listaci.Liquido_De_Frenos == 3){%> <p class="btn btn-danger">FUGAS</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">ACEITE DE MOTOR</td>
+                                <td colspan="4">
+                                    <% if (listaci.Aceite_De_Motor == 1){%> <p class="btn btn-success">OPTIMO</p> <% } %> 
+                                    <% if (listaci.Aceite_De_Motor == 2){%> <p class="btn btn-danger">BAJO</p> <% } %> 
+                                    <% if (listaci.Aceite_De_Motor == 3){%> <p class="btn btn-danger">FUGAS</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">ACEITE DEL SISTEMA HIDRÁULICO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Aceite_Del_Sistema_Hidraulico == 1){%> <p class="btn btn-success">OPTIMO</p> <% } %> 
+                                    <% if (listaci.Aceite_Del_Sistema_Hidraulico == 2){%> <p class="btn btn-danger">BAJO</p> <% } %> 
+                                    <% if (listaci.Aceite_Del_Sistema_Hidraulico == 3){%> <p class="btn btn-danger">FUGAS</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"}>ACEITE DE LA CAJA AUTOMATICA</td>
+                                <td colspan="4">
+                                    <% if (listaci.Aceite_De_La_Caja_Automatica == 1){%> <p class="btn btn-success">OPTIMO</p> <% } %> 
+                                    <% if (listaci.Aceite_De_La_Caja_Automatica == 2){%> <p class="btn btn-danger">BAJO</p> <% } %> 
+                                    <% if (listaci.Aceite_De_La_Caja_Automatica == 3){%> <p class="btn btn-danger">FUGAS</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"}>ACEITE DE TRANSMISIÓN</td>
+                                <td colspan="4">
+                                    <% if (listaci.Aceite_De_Transmision == 1){%> <p class="btn btn-success">OPTIMO</p> <% } %> 
+                                    <% if (listaci.Aceite_De_Transmision == 2){%> <p class="btn btn-danger">BAJO</p> <% } %> 
+                                    <% if (listaci.Aceite_De_Transmision == 3){%> <p class="btn btn-danger">FUGAS</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">COMBUSTIBLE</td>
+                                <td colspan="4">
+                                    <% if (listaci.Combustible == 1){%> <p class="btn btn-success">OPTIMO</p> <% } %> 
+                                    <% if (listaci.Combustible == 2){%> <p class="btn btn-danger">BAJO</p> <% } %> 
+                                    <% if (listaci.Combustible == 3){%> <p class="btn btn-danger">FUGAS</p> <% } %> 
+                                </td>
+                            </tr>
+    
+                            <tr>
+                                <th rowspan="7">TESTIGOS</th>
+                                <td colspan="2">HOROMETRO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Horometro == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Horometro == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">NIVEL DE COMBUSTIBLE</td>
+                                <td colspan="4">
+                                    <% if (listaci.Nivel_De_Combustible == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Nivel_De_Combustible == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>    
+                                <td colspan="2">PRESIÓN ACEITE DE MOTOR</td>
+                                <td colspan="4">
+                                    <% if (listaci.Presion_Aceite_De_Motor == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Presion_Aceite_De_Motor == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">TEMPERATURA MOTOR</td>
+                                <td colspan="4">
+                                    <% if (listaci.Temperatura_Motor == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Temperatura_Motor == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">NIVEL LIQUIDO DE FRENOS</td>
+                                <td colspan="4">
+                                    <% if (listaci.Nivel_Liquido_De_Frenos == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Nivel_Liquido_De_Frenos == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                           
+                            <tr>
+                                <td colspan="2">FRENOS NEUMATICOS</td>
+                                <td colspan="4">
+                                    <% if (listaci.Frenos_Neumaticos == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Frenos_Neumaticos == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                           
+                            <tr>
+                                <td colspan="2">NIVEL ACEITE DEL SISTEMA HIDRAÚLICO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Nivel_Aceite_Del_Sistema_Hidraulico == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Nivel_Aceite_Del_Sistema_Hidraulico == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                           
+                            <tr>
+                                <th rowspan="5">BATERIA</th>
+                                <td colspan="2">ESTADO DE LA BATERIA</td>
+                                <td colspan="4">
+                                    <% if (listaci.Estado_De_La_Bateria == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Estado_De_La_Bateria == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">ESTADO DE LOS BORNES DE LA BATERIA</td>
+                                <td colspan="4">
+                                    <% if (listaci.Estado_De_Los_Bornes_De_La_Bateria == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Estado_De_Los_Bornes_De_La_Bateria == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">NIVEL DE ELECTROLITO DE LA BATERIA</td>
+                                <td colspan="4">
+                                    <% if (listaci.Nivel_De_Electrolito_De_La_Bateria == 1){%> <p class="btn btn-success">OPTIMO</p> <% } %> 
+                                    <% if (listaci.Nivel_De_Electrolito_De_La_Bateria == 2){%> <p class="btn btn-danger">EXCESIVO</p> <% } %> 
+                                    <% if (listaci.Nivel_De_Electrolito_De_La_Bateria == 3){%> <p class="btn btn-danger">BAJO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">VOLTAJE DE LA BATERIA (VOLTIOS)</td>
+                                <td colspan="4">
+                                    <% if (listaci.Voltaje_De_La_Bateria == 1){%> <p class="btn btn-success">12</p> <% } %> 
+                                    <% if (listaci.Voltaje_De_La_Bateria == 2){%> <p class="btn btn-danger">24</p> <% } %> 
+                                    <% if (listaci.Voltaje_De_La_Bateria == 3){%> <p class="btn btn-success">36</p> <% } %> 
+                                    <% if (listaci.Voltaje_De_La_Bateria == 4){%> <p class="btn btn-danger">48</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">CABLES DE LA BATERIA</td>
+                                <td colspan="4">
+                                    <% if (listaci.Cables_De_La_Bateria == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Cables_De_La_Bateria == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <th rowspan="10">MONTACARGAS <br> COMBUSTION INTERNA</th>
+                                <th rowspan="7">GAS</th>
+                                <td>ESTADO CILINDRO DE GAS</td>
+                                <td colspan="4">
+                                    <% if (listaci.Estado_Cilindro_De_Gas == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Estado_Cilindro_De_Gas == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                    <% if (listaci.Estado_Cilindro_De_Gas == 3){%> <p class="btn btn-danger">NO APLICA</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >SOPORTE DE ASEGURAMIENTO DEL CILINDRO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Soporte_De_Aseguramiento_Del_Cilindro == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Soporte_De_Aseguramiento_Del_Cilindro == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                    <% if (listaci.Soporte_De_Aseguramiento_Del_Cilindro == 3){%> <p class="btn btn-danger">NO APLICA</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >CONEXIONY RACORES</td>
+                                <td colspan="4">
+                                    <% if (listaci.Conexiones_Y_Racores == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Conexiones_Y_Racores == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                    <% if (listaci.Conexiones_Y_Racores == 3){%> <p class="btn btn-danger">NO APLICA</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >MAGUERA</td>
+                                <td colspan="4">
+                                    <% if (listaci.Manguera == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Manguera == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                    <% if (listaci.Manguera == 3){%> <p class="btn btn-danger">NO APLICA</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >LLAVE DE PASO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Llave_De_Paso == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Llave_De_Paso == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                    <% if (listaci.Llave_De_Paso == 3){%> <p class="btn btn-danger">NO APLICA</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >VALVULA DE RETENCION</td>
+                                <td colspan="4">
+                                    <% if (listaci.Valvula_De_Retencion == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Valvula_De_Retencion == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                    <% if (listaci.Valvula_De_Retencion == 3){%> <p class="btn btn-danger">NO APLICA</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >FILTRO DEL SISTEMA</td>
+                                <td colspan="4">
+                                    <% if (listaci.Filtro_Del_Sistema == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Filtro_Del_Sistema == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                    <% if (listaci.Filtro_Del_Sistema == 3){%> <p class="btn btn-danger">NO APLICA</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <th rowspan="3">DIESEL O <br> GASOLINA</th>
+                                <td>TAPA DE TANQUE DE COMBUSTIBLE</td>
+                                <td colspan="4">
+                                    <% if (listaci.Tapa_De_Tanque_De_Combustible == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Tapa_De_Tanque_De_Combustible == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                    <% if (listaci.Tapa_De_Tanque_De_Combustible == 3){%> <p class="btn btn-danger">NO APLICA</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ESTADO DEL TANQUE DE COMBUSTIBLE</td>
+                                <td colspan="4">
+                                    <% if (listaci.Estado_Del_Tanque_De_Combustible == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Estado_Del_Tanque_De_Combustible == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                    <% if (listaci.Estado_Del_Tanque_De_Combustible == 3){%> <p class="btn btn-danger">NO APLICA</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >NIVEL DE COMBUSTIBLE</td>
+                                <td colspan="4">
+                                    <% if (listaci.Nivel_De_Combustible2 == 1){%> <p class="btn btn-success">BUENO</p> <% } %> 
+                                    <% if (listaci.Nivel_De_Combustible2 == 2){%> <p class="btn btn-danger">MALO</p> <% } %> 
+                                    <% if (listaci.Nivel_De_Combustible2 == 3){%> <p class="btn btn-danger">NO APLICA</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <th rowspan="3">LIMPIEZA DE FILTROS <br> DEL EQUIPO</th>
+                                <td colspan="2">FILTRO DE AIRE</td>
+                                <td colspan="4">
+                                    <% if (listaci.Filtro_De_Aire == 1){%> <p class="btn btn-success">SI</p> <% } %> 
+                                    <% if (listaci.Filtro_De_Aire == 2){%> <p class="btn btn-danger">NO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">FILTRO DE COMBUSTIBLE</td>
+                                <td colspan="4">
+                                    <% if (listaci.Filtro_De_Combustible == 1){%> <p class="btn btn-success">SI</p> <% } %> 
+                                    <% if (listaci.Filtro_De_Combustible == 2){%> <p class="btn btn-danger">NO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">FILTRO DE HIDRAULICO</td>
+                                <td colspan="4">
+                                    <% if (listaci.Nivel_De_Combustible2 == 1){%> <p class="btn btn-success">SI</p> <% } %> 
+                                    <% if (listaci.Nivel_De_Combustible2 == 2){%> <p class="btn btn-danger">NO</p> <% } %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="7">OBSERVACIONES GENERALES</td>
+                            </tr>
+                            <tr>
+                                <td colspan="7">
+                                    <%= listaci.Observaciones_Generales %> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="7" class="Editar-Position" id="Editar-Position">REPORTE DE CONDICIONES PELIGROSAS EN EL AREA DE TRABAJO</th>
+                            </tr>
+                            <tr>
+                                <th colspan="1" class="Editar-Position" id="Editar-Position">FECHA</th>
+                                <th colspan="1"  class="Editar-Position" id="Editar-Position">CONSECUTIVO</th>
+                                <th colspan="7"  class="Editar-Position" id="Editar-Position">DESCRIPCIÓN/OBESERVACIONES</th>
+                            </tr>
+                            <% reportedecondicionesci.forEach((reportedecondicionesci)=> { %>
+                                <% if(reportedecondicionesci.ID_ListaCI == listaci.ID){   %>
+                                    <tr>
+                                        <td colspan="1" class="Editar-Position" id="Editar-Position"> <%= reportedecondicionesci.Fecha %> </td>
+                                        <td colspan="1"  class="Editar-Position" id="Editar-Position">
+                                            <%= reportedecondicionesci.ID_Consecutivo %>
+                                        </td>
+                                        <td colspan="7"  class="Editar-Position" id="Editar-Position"><%= reportedecondicionesci.Descripcion %></td>
+                                    </tr>
+                                <% } %>  
+                            <% }) %>
+    
+                            <tr>
+                                <th colspan="7" class="Editar-Position" id="Editar-Position">REPORTE DE SOLICITUD DE MANTENIMIENTO </th>
+                            </tr>
+                            <tr>
+                                <th colspan="1" class="Editar-Position" id="Editar-Position">FECHA</th>
+                                <th colspan="1"  class="Editar-Position" id="Editar-Position">CONSECUTIVO</th>
+                                <th colspan="7"  class="Editar-Position" id="Editar-Position">DESCRIPCIÓN/OBESERVACIONES</th>
+                            </tr> 
+                            <% reportedesolicitudci.forEach((reportedesolicitudci)=> { %>
+                                <% if(reportedesolicitudci.ID_ListaCI == listaci.ID){   %>
+                                    <tr>
+                                        <td colspan="1" class="Editar-Position" id="Editar-Position"> <%= reportedesolicitudci.Fecha %> </td>
+                                        <td colspan="1"  class="Editar-Position" id="Editar-Position">
+                                            <%= reportedesolicitudci.ID_Consecutivo %>
+                                        </td>
+                                        <td colspan="7"  class="Editar-Position" id="Editar-Position"><%= reportedesolicitudci.Descripcion %></td>
+                                    </tr>
+                                <% } %> 
+                            <% }) %>
+                            <tr>
+                                <td colspan="7"><b>EVENTO INESPERADO</b></td>
+                            </tr>
+                            <tr>
+                                <td colspan="7">
+                                    <textarea type="text" name="Evento_Inesperado" id="Evento_Inesperado" class="InputObservaciones"> </textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6">
+                                    <label class="LabelMantenimiento">El equipo presenta alguna falla: </label>
+                                    <select name="Mantenimiento" id="Mantenimiento">
+                                        <option value="3">-</option>
+                                        <option value="2">SI</option>
+                                        <option value="1">NO</option>
+                                    </select>
+                                    <input type="hidden" value="2" name="EstadoV" id="EstadoV">
+                                    <input type="hidden" value="1" name="EstadoF" id="EstadoF">
+                                    <input type="hidden" value="1" name="Estado" id="Estado">
+                                    <input type="hidden" name="id" id="id" value="<%= listaci.ID %> ">
+                                    <input type="hidden" name="ID_Montacargas" id="ID_Montacargas" value="<%= listaci.ID_Montacargas %>">
+                                </td>
+                                <td>
+                                    <button type="submit" class="boton_enviar">Enviar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                               <th colspan="2" class="EspacioLista"> 
+                                    <% operador.forEach((operador)=> { %>
+                                        <% if(operador.ID == listaci.ID_Operador){   %>
+                                            <%= operador.Nombre1 %> <%= operador.Nombre2 %> <%= operador.Apellido1 %> <%= operador.Apellido2 %>
+                                        <% } %> 
+                                    <% }) %>    
+                                </th>
+                               <th colspan="5" class="EspacioLista">
+                                    <% if(listaci.EstadoV == 1){   %>
+                                        <% supervisor.forEach((supervisor)=> { %>
+                                            <% if(supervisor.ID == listaci.ID_Supervisor){   %>
+                                                <%= supervisor.Nombre1 %> <%= supervisor.Nombre2 %> <%= supervisor.Apellido1 %> <%= supervisor.Apellido2 %>
+                                            <% } %> 
+                                        <% }) %>
+                                    <% } %> 
+                               </th> 
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <center>
+                                        FIRMA OPERADOR
+                                    </center>                                
+                                </td>
+                                <td colspan="5">
+                                    <center>
+                                        FIRMA SUPERVISOR
+                                    </center>                                
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                <% } %>
+            <% }) %> 
+        </div>
+    </form>
+    
+</body>
+</html> 

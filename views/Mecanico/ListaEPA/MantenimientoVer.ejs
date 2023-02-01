@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OutKargo</title>
+    <link rel="icon" href="/img/FAVICON.ico"/>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <a href="/Mecanico/listaepa/">VOLVER</a>
+    <br>
+        <% if (mantenimientoc) { %>
+            <table border="1">
+                <tr>
+                    <th><img src="/img/Logo.png" class="ImagenLista"></th>
+                    <th colspan="2">REPORTE MANTENIMIENTO CORRECTIVO</th>
+                </tr>
+                <tr>
+                    <td>
+                        <b>CENTRO DE TRABAJO: </b>
+                        <% CentrosT.forEach((CentrosT)=>{ %>
+                            <% if(mantenimientoc[0].ID_Centro == CentrosT.ID) {%> 
+                                <%= CentrosT.Nombre %> 
+                           <% } %>
+                        <% }) %> 
+                    </td>
+                    <td>
+                        <b>SECCION DE TRABAJO: </b>
+                        <% if(SeccionesT) {%>
+                            <%= SeccionesT[0].Nombre %> 
+                            <input type="hidden" name="ID_Seccion" id="ID_Seccion" value="<%= SeccionesT[0].ID %>"> 
+                        <% } %>
+                    </td>
+                    <td>
+                        <b>FECHA: </b>
+                        <%= mantenimientoc[0].FechaI %> 
+                    </td>
+    
+                </tr>
+                <tr>
+                    <td>
+                        <b>No. Montacargas: </b>
+                        <% if(ID_Montacargas) {%> 
+                            <%= ID_Montacargas[0].Numero %> 
+                            <input type="hidden" name="ID_Montacargas" id="ID_Montacargas" value="<%= ID_Montacargas[0].ID %>"> 
+                        <% } %>
+                    </td>
+                    <td>
+                        <b>Serie: </b>
+                        <% if(ID_Montacargas) {%> 
+                            <%= ID_Montacargas[0].Serie %> 
+                        <% } %>
+                    </td>
+                    <td>
+                        <b>Modelo: </b>
+                        <% if(ID_Montacargas) {%>
+                            <%= ID_Montacargas[0].Modelo %>
+                        <% } %>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <b>Operador que reporta: </b>
+                        <% if(operador == "") { %>
+                            <%= supervisor[0].Nombre1%> <%= supervisor[0].Nombre2%> <%= supervisor[0].Apellido1%> <%= supervisor[0].Apellido2%> 
+                        <% } %>
+                            <% if (operador) {   %>
+                            <% operador.forEach((operador)=>{  %> 
+                                <% if (operador.ID = mantenimientoc[0].ID_Operador) {   %>
+                                    <%= operador.Nombre1 %> <%= operador.Nombre2 %>  <%= operador.Apellido1 %>  <%= operador.Apellido2 %> 
+                                    <input type="hidden" name="ID_Operador" id="ID_Operador" value="<%= operador.ID %>"> 
+                                <% } %> 
+                            <% }) %>
+                        <% } %> 
+                    </td>
+                    <td>
+                        <b>Horometro: </b>
+                        <% if(ID_Montacargas) {%>
+                            <%= ID_Montacargas[0].HorometroI%> 
+                        <% } %>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <b>Supervisor que reporta: </b>
+                        <% if(supervisor == "") { %>
+                            Ningun supervisor a verificado esta lista de chequeo
+                        <% } %>
+                        <% if (supervisor) {   %>
+                            <% supervisor.forEach((supervisor)=>{  %> 
+                                <%= supervisor.Nombre1 %> <%= supervisor.Nombre2 %>  <%= supervisor.Apellido1 %>  <%= supervisor.Apellido2 %> 
+                                <input type="hidden" name="ID_Supervisor" id="ID_Supervisor" value="<%= supervisor.ID %>"> 
+                            <% }) %>
+                        <% } %> 
+                    </td>
+                    <td>
+                        <b>Hora informado: </b>
+                            <% if(listaepa) {%>  
+                                <%= listaepa[0].Hora%> 
+                                <input type="hidden" name="HoraI" id="HoraI" value="<%= listaepa[0].Hora %>"> 
+                                <input type="hidden" name="ID_Lista" id="ID_Lista" value="<%= listaepa[0].ID %>">
+                            <% } %>
+                        </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <b>Mecanico: </b>
+                        <% if (mecanico) {   %>
+                            <% mecanico.forEach((mecanico)=>{  %> 
+                                <% if(mecanico.ID == mantenimientoc[0].ID_Mecanico){ %>
+                                    <%= mecanico.Nombre1 %> <%= mecanico.Nombre2 %>  <%= mecanico.Apellido1 %>  <%= mecanico.Apellido2 %> 
+                                <% } %>
+                            <% }) %>
+                        <% } %> 
+                    </td>
+                    <td>
+                        <b>Hora: </b>
+                            <%= mantenimientoc[0].HoraF %> 
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="3">DESCRIPCIÓN DE LA FALLA</th>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <%= mantenimientoc[0].DESCRIPCION_DE_LA_FALLA %> 
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="3">REPARACION REALIZADA</th>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <%= mantenimientoc[0].REPARACION_REALIZADA %> 
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="3">INSUMOS Y REPUESTOS INSTALADOS</th>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <%= mantenimientoc[0].INSUMOS_Y_REPUESTOS_INSTALADOS %> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Falla Corregida: </b>
+                        <% if (mantenimientoc[0].FALLA_CORREGIDA == 1){%>Realizado.<% } %> 
+                        <% if (mantenimientoc[0].FALLA_CORREGIDA == 2){%>Necesita Mantenimiento.<% } %> 
+                    </td>
+                    <td colspan="2">
+                        <b >PROGRAMAR NUEVAMENTE PARA EL DÍA: </b> 
+                        <%= mantenimientoc[0].PROGRAMAR %> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Pendiente por: </b> 
+                    <td colspan="2">
+                        <%= mantenimientoc[0].PENDIENTE_POR %> 
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="3">INSUMOS Y REPUESTOS NECESARIOS PARA LA PROXIMA VISITA</th>
+                </tr>
+                <tr>
+                    <th>REFERENCIA</th>
+                    <th>DESCRIPCIÓN</th>
+                    <th>CANTIDAD</th>
+                </tr>
+                <tr>
+                    <th><%= mantenimientoc[0].REFERENCIA %> </th>
+                    <th><%= mantenimientoc[0].DESCRIPCION %> </th>
+                    <th><%= mantenimientoc[0].CANTIDAD %> </th>
+                </tr>
+                <tr>
+                    <th colspan="3">OBSERVACIONES</th>
+                </tr>
+                <tr>
+                    <th colspan="5"><%= mantenimientoc[0].OBSERVACIONES %> </th>
+                </tr>
+            </table>   
+        <%  } %> 
+        
+    </form>
+</body>
+</html>

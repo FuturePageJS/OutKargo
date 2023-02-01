@@ -1,0 +1,119 @@
+<%- include('../layouts/headerAdministrador'); -%>
+  <div class="main-cards">
+
+    <div class="card">
+      <div class="card-inner">
+        <p class="text-blue">MONTACARGAS</p>
+        <i class="fa-solid fa-truck-ramp-box"></i>
+      </div>
+      <span class="text-blue font-weight-bold">
+        <% totalmontacargas = 0 %> 
+        <% montacargas.forEach((montacargas)=> { %>
+          <% totalmontacargas = 1 + totalmontacargas %>
+        <% }) %>
+        <%= totalmontacargas %> 
+      </span>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+        <p class="text-blue">CENTROS DE TRABAJO</p>
+        <i class="fa-solid fa-building"></i>
+      </div>
+      <span class="text-blue font-weight-bold">
+        <% totalcentros = 0 %> 
+        <% centrost.forEach((centrost)=> { %>
+          <% totalcentros = 1 + totalcentros %>
+        <% }) %>
+        <%= totalcentros %> 
+      </span>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+        <p class="text-blue">OPERADORES</p>
+        <i class="fa-solid fa-users-gear"></i>
+      </div>
+      <span class="text-blue font-weight-bold">
+        <% totaloperador = 0 %> 
+        <% operador.forEach((operador)=> { %>
+          <% totaloperador = 1 + totaloperador %>
+        <% }) %>
+        <%= totaloperador %>  
+      </span>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+        <p class="text-blue">SNORKLIFT</p>
+        <i class="fa-solid fa-list-check"></i>
+      </div>
+      <span class="text-blue font-weight-bold">
+        <% totallistas = 0 %> 
+        <% listas.forEach((listas)=> { %>
+          <% totallistas = 1 + totallistas %>
+        <% }) %>
+        <%= totallistas %>  
+      </span>
+    </div>
+
+  </div>
+
+  <div class="main-cards">
+    <div class="card">
+      <div class="card-inner">
+        <p class="text-blue">ELECTRICA CONTRABALANCEADA</p>
+        <i class="fa-solid fa-list-check"></i>
+      </div>
+      <span class="text-blue font-weight-bold">
+        <% totallistas = 0 %> 
+        <% listaec.forEach((listaec)=> { %>
+          <% totallistas = 1 + totallistas %>
+        <% }) %>
+        <%= totallistas %>
+      </span>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+        <p class="text-blue">ELECTRICA, PASILLO ANGOSTO</p>
+        <i class="fa-solid fa-list-check"></i>
+      </div>
+      <span class="text-blue font-weight-bold">
+        <% totallistas = 0 %> 
+        <% listaepa.forEach((listaepa)=> { %>
+          <% totallistas = 1 + totallistas %>
+        <% }) %>
+        <%= totallistas %>
+      </span>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+        <p class="text-blue">ELECTRICA, TOMA PEDIDO</p>
+        <i class="fa-solid fa-list-check"></i>
+      </div>
+      <span class="text-blue font-weight-bold">
+        <% totallistas = 0 %> 
+        <% listaetp.forEach((listaetp)=> { %>
+          <% totallistas = 1 + totallistas %>
+        <% }) %>
+        <%= totallistas %> 
+      </span>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+        <p class="text-blue">COMBUSTIÓN INTERNA</p>
+        <i class="fa-solid fa-list-check"></i>
+      </div>
+      <span class="text-blue font-weight-bold">
+        <% totallistas = 0 %> 
+        <% listaci.forEach((listaci)=> { %>
+          <% totallistas = 1 + totallistas %>
+        <% }) %>
+        <%= totallistas %>  
+      </span>
+    </div>
+  </div>
+<%- include('../layouts/FooterAdministrador'); -%>

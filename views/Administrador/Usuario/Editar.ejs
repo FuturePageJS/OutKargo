@@ -1,0 +1,20 @@
+<%- include('../../layouts/headerAdministrador'); -%>
+<h3>Editar usuario</h3>
+<% if (usuarios) { %>
+  <form action="Update" method="POST">
+    <div class="form-group">
+      <label for="recipient-name" class="col-form-label">Documento:</label>
+      <input type="number" class="form-control" id="Documento" name="Documento" required value="<%= usuarios[0].Email %>">
+    </div>
+    <div class="form-group">
+        <label for="recipient-name" class="col-form-label">Contraseña:</label>
+        <input type="password" class="form-control" id="Clave" name="Clave" required value="<%= usuarios[0].Clave %>">  
+        <input type="hidden" class="form-control" id="id" name="id" value="<%= usuarios[0].ID %>">
+        <input type="hidden" class="form-control" id="Estado" name="Estado" value="1">
+      </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Continuar.</button>
+    </div>
+  </form>
+<% } %>
+<%- include('../../layouts/FooterAdministrador'); -%>  
